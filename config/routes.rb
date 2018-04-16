@@ -4,5 +4,4 @@ Rails.application.routes.draw do
   root 'pages#home'
 
   post '/averages' => 'application#averages'
-  post '/count' => 'application#count_per_genre'
 end
