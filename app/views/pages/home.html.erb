@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+              integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+              crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"></script>
+</head>
+<body>
+  <form method="post" action="/count" id="controls">
+    <label for="lower">Average Rating Lower:</label>
+    <input type="text" id="lower" name="lower">
+    <label for="upper">Average Rating Upper:</label>
+    <input type="text" id="upper" name="upper">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title">
+    <label for="tag">Tag:</label>
+    <input type="text" id="tag" name="tag">
+    <input type="submit" value="Submit">
+  </form>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <canvas id="avgChart"></canvas>
+      </div>
+      <div class="col-md-6">
+        <canvas id="countChart"></canvas>
+      </div>
+    </div>
+</div>
+
+  <script>
+    var ctx = document.getElementById("avgChart").getContext('2d');
+    var genres = ["Action", "Adventure", "Animation", "Children's", "Comedy", "Crime", "Documentary", "Drama", "Fantasy", "Film-Noir", "Horror", "Musical", "Mystery", "Romance", "Sci-Fi", "Thriller", "War", "Western"];
+    var avgChart = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+            labels: genres,
+            datasets: [{
+                label: 'Average Rating',
+                data: [],
+                backgroundColor: 
+                    'rgba(255, 99, 132, 0.2)'
+                ,
+                borderColor: 
+                    'rgba(255,99,132,1)'
+                ,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                        max: 5
+                    }
+                }]
+            }
+        }
+    });
+
+    var ctx2 = document.getElementById("countChart").getContext('2d');
+    var countChart = new Chart(ctx2, {
+        type: 'horizontalBar',
+        data: {
+            labels: genres,
+            datasets: [{
+                label: 'Count',
+                data: [],
+                backgroundColor: 
+                    'rgba(255, 99, 132, 0.2)'
+                ,
+                borderColor: 
+                    'rgba(255,99,132,1)'
+                ,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                        stepSize: 10
+                    }
+                }]
+            }
+        }
+    });
+
+    console.log(avgChart.data.datasets[0].data);
+    var globalRes;
+
+    $('#controls').submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: '/averages',
+            type: 'post',
+            data: $('#controls').serialize(),
+            success: function(res) {
+                globalRes = res;
+                console.log(res);
+
+                //Reset charts to zero
+                for (var i = 0; i < genres.length; i++) {
+                    avgChart.data.datasets[0].data[i] = 0;
+                    countChart.data.datasets[0].data[i] = 0;
+                }
+                avgChart.update();
+                countChart.update();
+                res["avg"].forEach(function(el) {
+                    avgChart.data.datasets[0].data[genres.indexOf(el.name)] = el.avg;
+                });
+                res["count"].forEach(function(el) {
+                    countChart.data.datasets[0].data[genres.indexOf(el.name)] = el.count;
+                });
+                avgChart.update();
+                countChart.update();
+            }
+        })
+    });
+  </script>
+
+</body>
+</html>
