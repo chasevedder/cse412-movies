@@ -86,6 +86,7 @@ test:
 #
 production:
   <<: *default
+  host: localhost
   database: postgres
   username: testuser
   password: 1234 

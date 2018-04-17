@@ -21,44 +21,41 @@
             <canvas id="countChart"></canvas>
           </div>
         </div>
-    </div>
-
-    <div style="float: left;">
-        <div class="row">
-            <div class="col-md-4">
-                <form method="post" action="/count" id="controls" style="min-width: 350px; max-width: 350px; text-align: right;">
-                    <div class="row" style="float: right">
-                        <label for="lower">Average Rating Lower:&nbsp;</label>
-                        <input type="text" id="lower" name="lower" style="float: right">
+        <style>
+            .form-group {
+                margin-bottom: 5px;
+            }
+        </style>
+        <div class="row" style="margin-top:20px">
+            <div class="col-md-6">
+                <form method="post" action="/count" id="controls">
+                    <div class="form-group row">
+                        <label for="lower" class="col-sm-5 col-form-label" style="text-align: right">Average Rating Lower:&nbsp;</label>
+                        <input type="text" id="lower" name="lower" class="form-control col-sm-7">
                     </div>
-                    <div class="row" style="float: right">
-                        <label for="upper">Average Rating Upper:&nbsp;</label>
-                        <input type="text" id="upper" name="upper" style="float: right">
+                    <div class="form-group row">
+                        <label for="upper" class="col-sm-5 col-form-label" style="text-align: right">Average Rating Upper:&nbsp;</label>
+                        <input type="text" id="upper" name="upper" class="form-control col-sm-7">
                     </div>
-                    <div class="row" style="float: right">
-                        <label for="title">Title:&nbsp;</label>
-                        <input type="text" id="title" name="title" style="float: right">
+                    <div class="form-group row">
+                        <label for="title" class="col-sm-5 col-form-label" style="text-align: right">Title:&nbsp;</label>
+                        <input type="text" id="title" name="title" class="form-control col-sm-7">
                     </div>
-                    <div class="row" style="float: right">
-                        <label for="tag">Tag:&nbsp;</label>
-                        <input type="text" id="tag" name="tag" style="float: right">
+                    <div class="form-group row">
+                        <label for="tag" class="col-sm-5 col-form-label" style="text-align: right">Tag:&nbsp;</label>
+                        <input type="text" id="tag" name="tag" class="form-control col-sm-7">
                     </div>
-
-                    <div class="row" style="float: right;">
-                        <div class="col-md-4">
-                            <input type="submit" value="Submit" style="float: right">
+                    <div class="row">
+                        <div class="col-md-4 offset-md-8" style="padding-right: 0px;">
+                            <input type="submit" value="Submit" class="form-control" style="float: right">
                         </div>
                     </div>
                 </form>
             </div>
-
-            <div class="col-md-8">
-                <div style="float: right; margin-top: -5px">
-                    <h2>Team GG</h2>
-                    <h3>Chase Vedder, Michael Molina, Christine Pak</h3>
-                </div>
+            <div class="col-md-6">
+                <h2>Team GG</h2>
+                <h3>Chase Vedder, Michael Molina, Christine Pak</h3>
             </div>
-
         </div>
     </div>
 </div>
@@ -129,7 +126,7 @@
     $('#controls').submit(function(e) {
         e.preventDefault();
         $.ajax({
-            url: 'http://68.2.210.230:3000/averages',
+            url: '/averages',
             type: 'post',
             data: $('#controls').serialize(),
             success: function(res) {

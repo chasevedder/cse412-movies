@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 		sql = "SELECT g.name, avg(r.rating) FROM hasagenre h "\
 				 "JOIN genres g on g.genreid = h.genreid "\
 				 "JOIN movies m on h.movieid = m.movieid "\
-				 "JOIN ratings r on h.movieid = r.movieid and r.movieid = m.movieid "\
+				 "JOIN ratings r on h.movieid = r.movieid "\
 				 "JOIN tags t on t.movieid = m.movieid "\
 				 "JOIN taginfo i on i.tagid = t.tagid "\
 				 "WHERE r.rating > #{params['lower']} "\
