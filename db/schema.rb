@@ -15,9 +15,4 @@ ActiveRecord::Schema.define(version: 0) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "users", id: :integer, default: nil, force: :cascade do |t|
-    t.string "username", limit: 64, null: false
-    t.string "name", limit: 64, null: false
-  end
-
 end
