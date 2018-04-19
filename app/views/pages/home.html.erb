@@ -28,6 +28,13 @@
                         <label for="upper" class="col-sm-5 col-form-label" style="text-align: right">Average Rating Upper:</label>
                         <input type="text" id="upper" name="upper" class="form-control col-sm-7">
                     </div>
+                    <div class="form-group row" style="padding-left: 33.6%">
+                        <div data-role="rangeslider" style="width: 250px;">
+                            <label for="price-min" class="col-form-label">Rating:&nbsp;&nbsp;</label>
+                            <input type="range" name="price-min" id="price-min" value="0" min="0" max="5">
+                            <input type="range" name="price-max" id="price-max" value="5" min="0" max="5">
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <label for="title" class="col-sm-5 col-form-label" style="text-align: right">Title:</label>
                         <input type="text" id="title" name="title" class="form-control col-sm-7">
@@ -52,6 +59,7 @@
 </div>
 
   <script>
+
     var ctx = document.getElementById("avgChart").getContext('2d');
     var genres = ["Action", "Adventure", "Animation", "Children's", "Comedy", "Crime", "Documentary", "Drama", "Fantasy", "Film-Noir", "Horror", "Musical", "Mystery", "Romance", "Sci-Fi", "Thriller", "War", "Western"];
     var avgChart = new Chart(ctx, {
@@ -115,6 +123,35 @@
 
     console.log(avgChart.data.datasets[0].data);
     var globalRes;
+
+
+    $(document).ready(function() {
+        $.ajax({
+            url: '/averages',
+            type: 'post',
+            data: [],
+            success: function(res) {
+                globalRes = res;
+                console.log(res);
+
+                //Reset charts to zero
+                for (var i = 0; i < genres.length; i++) {
+                    avgChart.data.datasets[0].data[i] = 0;
+                    countChart.data.datasets[0].data[i] = 0;
+                }
+                avgChart.update();
+                countChart.update();
+                res["avg"].forEach(function(el) {
+                    avgChart.data.datasets[0].data[genres.indexOf(el.name)] = el.avg;
+                });
+                res["count"].forEach(function(el) {
+                    countChart.data.datasets[0].data[genres.indexOf(el.name)] = el.count;
+                });
+                avgChart.update();
+                countChart.update();
+            }
+        })
+    });
 
     $('#controls').submit(function(e) {
         e.preventDefault();
