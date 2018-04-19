@@ -3,11 +3,11 @@ class ApplicationController < ActionController::Base
 
 	def averages
 		#Set default params
-		if params["lower"].nil? or params["lower"] == ""
-			params["lower"] = 0
+		if params["rating-min"].nil? or params["rating-min"] == ""
+			params["rating-min"] = 0
 		end
-		if params["upper"].nil? or params["upper"] == ""
-			params["upper"] = 5
+		if params["rating-max"].nil? or params["rating-max"] == ""
+			params["rating-max"] = 5
 		end
 		if params["title"].nil? or params["title"] == ""
 			params["title"] = ""
@@ -22,8 +22,8 @@ class ApplicationController < ActionController::Base
 				 "JOIN ratings r on h.movieid = r.movieid "\
 				 "JOIN tags t on t.movieid = m.movieid "\
 				 "JOIN taginfo i on i.tagid = t.tagid "\
-				 "WHERE r.rating >= #{params['lower']} "\
-				 	"AND r.rating <= #{params['upper']} "\
+				 "WHERE r.rating >= #{params['rating-min']} "\
+				 	"AND r.rating <= #{params['rating-max']} "\
 				 	"AND m.title ILIKE '%#{params["title"]}%' "\
 				 	"AND i.content ILIKE '%#{params["tag"]}%' "\
 				 "GROUP BY g.name"
@@ -36,8 +36,8 @@ class ApplicationController < ActionController::Base
 				 "JOIN ratings r on h.movieid = r.movieid and r.movieid = m.movieid "\
 				 "JOIN tags t on t.movieid = m.movieid "\
 				 "JOIN taginfo i on i.tagid = t.tagid "\
-				 "WHERE r.rating >= #{params['lower']} "\
-				 	"AND r.rating <= #{params['upper']} "\
+				 "WHERE r.rating >= #{params['rating-min']} "\
+				 	"AND r.rating <= #{params['rating-max']} "\
 				 	"AND m.title ILIKE '%#{params["title"]}%' "\
 				 	"AND i.content ILIKE '%#{params["tag"]}%' "\
 				 "GROUP BY g.name"
