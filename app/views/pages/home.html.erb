@@ -1,53 +1,44 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"></script>
-</head>
-<body style="background-color: #e6e6e6">
-
-<div class="container-fluid" style="width: 1200px; height: 720px; background-color: #d9d9d9">
+<div class="container-fluid" style="width: 80%; background-color: #d9d9d9; padding: 10px;">
     <h1>CSE 412</h1>
-    <div class="container-fluid" style="float: left; margin-bottom: 5px">
+    <div class="container-fluid" style="margin-bottom: 5px">
         <div class="row">
           <div class="col-md-6" style="background-color: #fff; border-right-style: solid; border-width: .7px; border-color: #d9d9d9">
-            <canvas id="avgChart"></canvas>
+            <canvas id="avgChart" style="height:600px"></canvas>
           </div>
           <div class="col-md-6" style="background-color: #fff; border-left-style: solid; border-width: .7px; border-color: #d9d9d9">
-            <canvas id="countChart"></canvas>
+            <canvas id="countChart" style="height:600px"></canvas>
           </div>
         </div>
         <style>
             .form-group {
                 margin-bottom: 5px;
             }
+            body {
+                background-color: #e6e6e6
+            }
         </style>
         <div class="row" style="margin-top:20px">
             <div class="col-md-6">
                 <form method="post" action="/count" id="controls">
                     <div class="form-group row">
-                        <label for="lower" class="col-sm-5 col-form-label" style="text-align: right">Average Rating Lower:&nbsp;</label>
+                        <label for="lower" class="col-sm-5 col-form-label" style="text-align: right">Average Rating Lower:</label>
                         <input type="text" id="lower" name="lower" class="form-control col-sm-7">
                     </div>
                     <div class="form-group row">
-                        <label for="upper" class="col-sm-5 col-form-label" style="text-align: right">Average Rating Upper:&nbsp;</label>
+                        <label for="upper" class="col-sm-5 col-form-label" style="text-align: right">Average Rating Upper:</label>
                         <input type="text" id="upper" name="upper" class="form-control col-sm-7">
                     </div>
                     <div class="form-group row">
-                        <label for="title" class="col-sm-5 col-form-label" style="text-align: right">Title:&nbsp;</label>
+                        <label for="title" class="col-sm-5 col-form-label" style="text-align: right">Title:</label>
                         <input type="text" id="title" name="title" class="form-control col-sm-7">
                     </div>
                     <div class="form-group row">
-                        <label for="tag" class="col-sm-5 col-form-label" style="text-align: right">Tag:&nbsp;</label>
+                        <label for="tag" class="col-sm-5 col-form-label" style="text-align: right">Tag:</label>
                         <input type="text" id="tag" name="tag" class="form-control col-sm-7">
                     </div>
                     <div class="row">
                         <div class="col-md-4 offset-md-8" style="padding-right: 0px;">
-                            <input type="submit" value="Submit" class="form-control" style="float: right">
+                            <input type="submit" value="Submit" class="form-control btn btn-primary">
                         </div>
                     </div>
                 </form>
@@ -80,6 +71,7 @@
             }]
         },
         options: {
+            maintainAspectRatio: false,
             scales: {
                 xAxes: [{
                     ticks: {
@@ -109,6 +101,7 @@
             }]
         },
         options: {
+            maintainAspectRatio: false,
             scales: {
                 xAxes: [{
                     ticks: {
@@ -151,7 +144,4 @@
             }
         })
     });
-  </script>
-
-</body>
-</html>
+  </script> 
