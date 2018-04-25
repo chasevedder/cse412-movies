@@ -1,24 +1,38 @@
-# README
+# ASU CSE 412 Project Phase 3
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Loading the Database
+To import the database, you must have a postgresql server already installed and running.
+You must also have a user named cse412 with password 'cse412', and a database named 'cse412'. You can do the setup by running the following commands from the postgresql console. First, create the user:
+```
+CREATE USER cse412 WITH PASSWORD 'cse412'
+```
 
-Things you may want to cover:
+Next create teh database:
+```
+CREATE DATABASE cse412
+```
 
-* Ruby version
+With the above setup done, you can run:
+```
+$ psql -U cse412 -f dbexport.pgsql
+```
 
-* System dependencies
+## How to Run
+**Note: This was only tested with Ruby 2.5.1, any other versions may have issues**
 
-* Configuration
+Install Bundler:
+```
+$ gem install bundler
+```
 
-* Database creation
+Install all other dependencies:
+```
+$ bundle install
+```
 
-* Database initialization
+Run the server:
+```
+$ rails s
+```
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+You can now access the website by going to `http://localhost:3000`
