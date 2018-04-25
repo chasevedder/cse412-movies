@@ -7,6 +7,7 @@ You must also have a user named cse412 with password 'cse412', and a database na
 $ psql -U postgres
 ```
 
+Next, create the cse412 user:
 ```
 postgres=# CREATE USER cse412 WITH PASSWORD 'cse412';
 ```
