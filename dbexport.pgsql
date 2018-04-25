@@ -19,14 +19,14 @@ SET row_security = off;
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+-- CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
 
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+--COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
 SET default_tablespace = '';
@@ -85,7 +85,7 @@ CREATE TABLE public.ratings (
 ALTER TABLE public.ratings OWNER TO cse412;
 
 --
--- Name: recommendation; Type: TABLE; Schema: public; Owner: postgres
+-- Name: recommendation; Type: TABLE; Schema: public; Owner: cse412
 --
 
 CREATE TABLE public.recommendation (
@@ -93,7 +93,7 @@ CREATE TABLE public.recommendation (
 );
 
 
-ALTER TABLE public.recommendation OWNER TO postgres;
+ALTER TABLE public.recommendation OWNER TO cse412;
 
 --
 -- Name: taginfo; Type: TABLE; Schema: public; Owner: cse412
